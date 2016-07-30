@@ -23,6 +23,11 @@ parser::parser()
 
 }
 
+parser::parser(istream *input)
+{
+	m_input = input;
+}
+
 parser::~parser()
 {
 

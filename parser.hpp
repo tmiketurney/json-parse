@@ -23,9 +23,11 @@ using namespace std;
 class parser : public token {
 
 	private:
+		istream *m_input;
 
 	public:
 		parser();
+		parser(istream *m_input);
 		~parser();
 
 		int parse_input();

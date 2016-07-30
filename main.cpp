@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 	if (file_name.compare("cin") == 0)
 	{
 		// reading input from cin
-		json_parser = new parser();
+		json_parser = new parser(&cin);
 	}
 	else
 	{
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 
-		json_parser = new parser();
+		json_parser = new parser(&infile);
 	}
 
 	// Parse the input
