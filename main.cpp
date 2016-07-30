@@ -33,12 +33,12 @@ string file_name("stdin");
 void usage(vector<string> arguments)
 {
 	vector<string>::iterator iter = arguments.begin();
-	cout << "Usage: " << iter->c_str() << " [-d <num> | -f <file> | -v]\n";
-	cout << "\t-d sets debug level (higher is more verbose output)\n";
-	cout << "\t-f specifies file with JSON to parse, default stdin\n";
-	cout << "\t-v requests version info\n";
-	cout << "\t-? display this usage info\n";
-	cout << "\tVersion[" << version_major << "." << version_minor << "]\n";
+	cerr << "Usage: " << iter->c_str() << " [-d <num> | -f <file> | -v]\n";
+	cerr << "\t-d sets debug level (higher is more verbose output)\n";
+	cerr << "\t-f specifies file with JSON to parse, default stdin\n";
+	cerr << "\t-v requests version info\n";
+	cerr << "\t-? display this usage info\n";
+	cerr << "\tVersion[" << version_major << "." << version_minor << "]\n";
 	exit(0);
 }
 
@@ -60,7 +60,7 @@ void parse_cl(vector<string> arguments)
          iter != arguments.end(); ++iter)
 	{
 		string arg = *iter;
-		cout << "[" << i++ << "]:" << arg << "\n";
+		cerr << "[" << i++ << "]:" << arg << "\n";
 
 		const char *cstr = iter->c_str();
 		if (cstr[0] == '-')
@@ -81,7 +81,7 @@ void parse_cl(vector<string> arguments)
 					break;
 
 				case 'v':
-					cout << "Version: " << version_major << "." << version_minor << "\n";
+					cerr << "Version: " << version_major << "." << version_minor << "\n";
 					exit(0);
 					break;
 
@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
 	vector<string> arguments = command_line(argc, argv);
 	parse_cl(arguments);
 	
-	cout << "debug_level[" << debug_level << "]\n";
-	cout << "file_name[" << file_name << "]\n";
-	cout << "Version[" << version_major << "." << version_minor << "]\n";
+	cerr << "debug_level[" << debug_level << "]\n";
+	cerr << "file_name[" << file_name << "]\n";
+	cerr << "Version[" << version_major << "." << version_minor << "]\n";
 
 }
