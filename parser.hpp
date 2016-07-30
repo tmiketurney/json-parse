@@ -11,10 +11,10 @@
  *
  */
  
- #ifndef _PARSER_HPP
- #define _PARSER_HPP
+#ifndef _PARSER_HPP
+#define _PARSER_HPP
  
- #include "token.hpp"
+#include "token.hpp"
  
- #endif		// _PARSER_HPP
+#endif		// _PARSER_HPP
  
