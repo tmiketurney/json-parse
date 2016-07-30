@@ -7,20 +7,20 @@
  *	Copyright	2016. All Rights Reserved.
  *	License:	GNU, GPLv2, See LICENSE file.
  *
- *	File:		token.cpp : Token class(es)
+ *	File:		tokenize.cpp : Token class
  *
  */
 
-#include "token.hpp"
+#include "tokenize.hpp"
 
 using namespace std;
 
-token::token()
+tokenize::tokenize()
 {
 
 }
 
-token::~token()
+tokenize::~tokenize()
 {
 
 }

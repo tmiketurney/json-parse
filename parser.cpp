@@ -13,7 +13,7 @@
  
 #include <iostream>
  
-#include "token.hpp"
+#include "tokenize.hpp"
 #include "parser.hpp"
 
 using namespace std;
