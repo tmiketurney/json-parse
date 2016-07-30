@@ -25,6 +25,7 @@ enum class TokenLiteral : char {
 	tTrue,
 	tFalse,
 	tNull,
+	tBadToken,
 	tLCurly='{',
 	tRCurly='}',
 	tLBracket='[',
@@ -42,6 +43,11 @@ class tokenize {
 
 	private:
 		istream *m_input;
+		Token m_current;
+
+		bool handle_digits();
+		bool handle_strings();
+		bool check_name(string name);
 
 	public:
 		tokenize();
