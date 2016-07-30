@@ -20,7 +20,7 @@
 
 using namespace std;
 
-class parser : public token {
+class parser : public tokenize {
 
 	private:
 		istream *m_input;
