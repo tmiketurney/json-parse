@@ -14,14 +14,41 @@
 #ifndef _TOKENIZE_HPP
 #define _TOKENIZE_HPP
 
+#include <istream>
+
 using namespace std;
+
+enum class TokenLiteral : char {
+	tEof,
+	tString,
+	tNumber,
+	tTrue,
+	tFalse,
+	tNull,
+	tLCurly='{',
+	tRCurly='}',
+	tLBracket='[',
+	tRBracket=']',
+	tColon=':'
+};
+
+struct Token {
+	TokenLiteral    tokenliteral;
+	string          string_value;
+	double          number_value;
+};
 
 class tokenize {
 
+	private:
+		istream *m_input;
+
 	public:
 		tokenize();
-
+		tokenize(istream *input);
 		~tokenize();
+
+		TokenLiteral read();
 };
  
 #endif		// _TOKENIZE_HPP

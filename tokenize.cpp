@@ -20,7 +20,17 @@ tokenize::tokenize()
 
 }
 
+tokenize::tokenize(istream *input)
+{
+	m_input = input;
+}
+
 tokenize::~tokenize()
+{
+
+}
+
+TokenLiteral tokenize::read()
 {
 
 }
