@@ -21,6 +21,8 @@
 
 using namespace std;
 
+#define DEBUG_ARGUMENTS			// enable to dump command-line arguments
+
 int version_major = 0;
 int version_minor = 1;
 
@@ -60,7 +62,10 @@ void parse_cl(vector<string> arguments)
          iter != arguments.end(); ++iter)
 	{
 		string arg = *iter;
+
+#ifdef DEBUG_ARGUMENTS
 		cerr << "[" << i++ << "]:" << arg << "\n";
+#endif
 
 		const char *cstr = iter->c_str();
 		if (cstr[0] == '-')
@@ -98,11 +103,14 @@ void parse_cl(vector<string> arguments)
 
 int main(int argc, char *argv[])
 {
+	// parse command-line argumets
 	vector<string> arguments = command_line(argc, argv);
 	parse_cl(arguments);
-	
+
+#ifdef DEBUG_ARGUMENTS
 	cerr << "debug_level[" << debug_level << "]\n";
 	cerr << "file_name[" << file_name << "]\n";
 	cerr << "Version[" << version_major << "." << version_minor << "]\n";
+#endif
 
 }
