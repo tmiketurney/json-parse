@@ -11,10 +11,9 @@
  *
  */
  
- #ifndef _TOKEN_HPP
- #define _TOKEN_HPP
+#ifndef _TOKEN_HPP
+#define _TOKEN_HPP
+
  
- 
- 
- #endif		// _TOKEN_HPP
+#endif		// _TOKEN_HPP
  
