@@ -12,6 +12,7 @@
  */
 
 #include <iostream>
+#include <ctype.h>
 
 #include "tokenize.hpp"
 
@@ -35,17 +36,71 @@ tokenize::~tokenize()
 
 bool tokenize::handle_digits()
 {
-	return true;
+	return false;
 }
 
 bool tokenize::handle_strings()
 {
+	// first character is " (which is already consumed)
+	string word;
+	char ch = 0;
+	while (*m_input >> ch)
+	{
+		if (ch == '\\')
+		{
+			word += '\\';
+			*m_input >> ch;
+			switch (ch)
+			{
+				case '"':
+				case '\\':
+				case '/':
+				case 'b':
+				case 'f':
+				case 'n':
+				case 'r':
+				case 't':
+					word += ch;
+					break;
+				case 'u':
+					word += 'u';
+					char c[4];
+					for (int i=0; i<4; i++)
+					{
+						*m_input >> c[i];
+						if (!isxdigit(c[i]))
+						{
+							cerr << "Badly formed hex digit escape in string [" << c[i] << "]\n";
+							return false;
+						}
+						else
+							word += c[i];
+					}
+					break;
+				default:
+					cerr << "Badly formed escape in string [" << ch << "]\n";
+					return false;
+			}
+		}
+		else if (ch == '\"')
+			break;
+		else
+			word += ch;
+	}
+	m_current.tokenliteral = TokenLiteral::tString;
+	m_current.string_value = word;
 	return true;
 }
 
 bool tokenize::check_name(string name)
 {
-	return true;
+	// first character matches start of known name
+	string word;
+	*m_input >> word;
+	if (word.compare(name))
+		return false;
+	else
+		return true;
 }
 
 TokenLiteral tokenize::read()
@@ -95,7 +150,6 @@ TokenLiteral tokenize::read()
 
 		// third group are strings
 		case '"':
-			m_input->putback(ch);
 			success = handle_strings();
 			break;
 
@@ -103,14 +157,20 @@ TokenLiteral tokenize::read()
 		case 'f':
 			m_input->putback(ch);
 			success = check_name("false");
+			if (success)
+				m_current.tokenliteral = TokenLiteral::tFalse;
 			break;
 		case 't':
 			m_input->putback(ch);
 			success = check_name("true");
+			if (success)
+				m_current.tokenliteral = TokenLiteral::tTrue;
 			break;
 		case 'n':
 			m_input->putback(ch);
 			success = check_name("null");
+			if (success)
+				m_current.tokenliteral = TokenLiteral::tNull;
 			break;
 
 		// last group is default/error
