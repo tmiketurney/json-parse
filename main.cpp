@@ -113,4 +113,40 @@ int main(int argc, char *argv[])
 	cerr << "Version[" << version_major << "." << version_minor << "]\n";
 #endif
 
+	// Initialize parse engine with correct file
+	parser *json_parser;
+	if (file_name.compare("cin") == 0)
+	{
+		// reading input from cin
+		json_parser = new parser();
+	}
+	else
+	{
+		// reading input from named file
+		ifstream infile;
+		infile.open(file_name.c_str());
+		if (!infile)
+		{
+			cerr << "error: unable open input file[" << file_name << "]\n";
+			exit(1);
+		}
+
+		json_parser = new parser();
+	}
+
+	// Parse the input
+	int success = json_parser->parse_input();
+
+	if (success == 0)
+	{
+		cerr << "Success!! Valid JSON string parsed.\n";
+	}
+	else
+	{
+		cerr << "Failure!! Invalid JSON string found during parsing.\n";
+	}
+
+	// cleanup and exit
+	delete json_parser;
+	exit(0);
 }
