@@ -29,7 +29,7 @@ int version_minor = 1;
 int debug_level;
 
 ifstream infile;
-string file_name("stdin");
+string file_name("cin");
 
 
 void usage(vector<string> arguments)
