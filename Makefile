@@ -1,8 +1,8 @@
 
 pjson: main.cpp tokenize.cpp tokenize.hpp parser.cpp parser.hpp
-	g++ -c main.cpp
-	g++ -c tokenize.cpp
-	g++ -c parser.cpp
+	g++ -c -std=c++11 main.cpp
+	g++ -c -std=c++11 tokenize.cpp
+	g++ -c -std=c++11 parser.cpp
 	g++ -o pjson main.o tokenize.o parser.o
 
 clean:
