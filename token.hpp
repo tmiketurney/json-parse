@@ -14,6 +14,15 @@
 #ifndef _TOKEN_HPP
 #define _TOKEN_HPP
 
+using namespace std;
+
+class token {
+
+	public:
+		token();
+
+		~token();
+};
  
 #endif		// _TOKEN_HPP
  
