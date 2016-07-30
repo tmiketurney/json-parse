@@ -22,9 +22,6 @@ using namespace std;
 
 class parser : public tokenize {
 
-	private:
-		istream *m_input;
-
 	public:
 		parser();
 		parser(istream *m_input);

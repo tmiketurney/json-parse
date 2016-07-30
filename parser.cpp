@@ -18,14 +18,14 @@
 
 using namespace std;
 
-parser::parser()
+parser::parser() : tokenize()
 {
 
 }
 
-parser::parser(istream *input)
+parser::parser(istream *input) : tokenize(input)
 {
-	m_input = input;
+
 }
 
 parser::~parser()
