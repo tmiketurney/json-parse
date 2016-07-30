@@ -13,8 +13,23 @@
  
 #ifndef _PARSER_HPP
 #define _PARSER_HPP
+
+#include <iostream>
  
 #include "token.hpp"
+
+using namespace std;
+
+class parser : public token {
+
+	private:
+
+	public:
+		parser();
+		~parser();
+
+		int parse_input();
+};
  
 #endif		// _PARSER_HPP
  
