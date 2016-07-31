@@ -123,7 +123,6 @@ int main(int argc, char *argv[])
 	else
 	{
 		// reading input from named file
-		ifstream infile;
 		infile.open(file_name.c_str());
 		if (!infile)
 		{
@@ -148,5 +147,7 @@ int main(int argc, char *argv[])
 
 	// cleanup and exit
 	delete json_parser;
+	if (file_name.compare("cin") != 0)
+		infile.close();
 	exit(0);
 }
