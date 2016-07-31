@@ -20,9 +20,6 @@
 
 #include "tokenize.hpp"
 
-extern int version_major;
-extern int version_minor;
-
 extern int debug_level;
 // Debug levels, set in debug_level
 #define NO_DEBUG 0
