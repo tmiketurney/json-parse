@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 	// Parse the input
 	int success = json_parser->parse_input();
 
-	if (success == 0)
+	if (success)
 	{
 		cerr << "Success!! Valid JSON string parsed.\n";
 	}
