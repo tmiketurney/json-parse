@@ -14,6 +14,7 @@
 #include <iostream>
 #include <ctype.h>
 
+#include "main.hpp"
 #include "tokenize.hpp"
 
 using namespace std;

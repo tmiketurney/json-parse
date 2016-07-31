@@ -7,37 +7,24 @@
  *	Copyright	2016. All Rights Reserved.
  *	License:	GNU, GPLv2, See LICENSE file.
  *
- *	File:		parser.cpp : Parser class
+ *	File:		main.hpp
  *
  */
- 
+
+#ifndef _MAIN_HPP
+#define _MAIN_HPP
+
+#include <string>
 #include <iostream>
+#include <vector>
 
-#include "main.hpp"
 #include "tokenize.hpp"
-#include "parser.hpp"
 
-using namespace std;
+extern int version_major;
+extern int version_minor;
+extern int debug_level;
+extern ifstream infile;
+extern string file_name;
+extern vector<Token> SymbolStream;
 
-parser::parser() : tokenize()
-{
-
-}
-
-parser::parser(istream *input) : tokenize(input)
-{
-
-}
-
-parser::~parser()
-{
-
-}
-
-int parser::parse_input()
-{
-	Token token;
-
-	return 0;
-}
-
+#endif	// _MAIN_HPP
