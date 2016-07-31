@@ -55,6 +55,7 @@ class tokenize {
 		~tokenize();
 
 		TokenLiteral read();
+		Token get_current() { return m_current; }
 };
  
 #endif		// _TOKENIZE_HPP
