@@ -37,11 +37,21 @@ tokenize::~tokenize()
 
 bool tokenize::handle_digits()
 {
+	if (debug_level >= TRACE)
+	{
+		cerr << "handle_digits\n";
+	}
+
 	return false;
 }
 
 bool tokenize::handle_strings()
 {
+	if (debug_level >= TRACE)
+	{
+		cerr << "handle_strings\n";
+	}
+
 	// first character is " (which is already consumed)
 	string word;
 	char ch = 0;
@@ -95,6 +105,11 @@ bool tokenize::handle_strings()
 
 bool tokenize::check_name(string name)
 {
+	if (debug_level >= TRACE)
+	{
+		cerr << "check_name[" << name << "]\n";
+	}
+
 	// first character matches start of known name
 	string word;
 	*m_input >> word;
@@ -108,6 +123,11 @@ TokenLiteral tokenize::read()
 {
 	char ch = 0;
 	bool success = true;
+
+	if (debug_level >= TRACE)
+	{
+		cerr << "tokenize::read()\n";
+	}
 
 	*m_input >> ch;
 
