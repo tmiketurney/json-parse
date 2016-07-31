@@ -124,6 +124,7 @@ bool parser::parseValue()
 	return success;
 }
 
+
 bool parser::parseObject()
 {
 	ObjectStates state = ObjectStates::osNeedString;
@@ -225,6 +226,7 @@ bool parser::parseObject()
 	}
 	return success;
 }
+
 
 int parser::parse_input()
 {
