@@ -39,6 +39,37 @@ parser::~parser()
 //	}
 }
 
+
+string parser::sObjectStates(ObjectStates state)
+{
+	string value;
+
+	switch (state)
+	{
+		case ObjectStates::osNeedString:
+			value = "osNeedString";
+			break;
+
+		case ObjectStates::osNeedColon:
+			value = "osNeedColon";
+			break;
+
+		case ObjectStates::osNeedValue:
+			value = "osNeedValue";
+			break;
+
+		case ObjectStates::osNeedEnd:
+			value = "osNeedEnd";
+			break;
+
+		default:
+			value = "UNKNOWN";
+			break;
+	}
+	return value;
+}
+
+
 bool parser::parseValue()
 {
 
