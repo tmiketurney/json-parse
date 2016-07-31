@@ -132,6 +132,11 @@ bool parser::parseObject()
 
 	while (do_another)
 	{
+		if (debug_level >= TRACE)
+		{
+			cerr << "parseObject state[" << sObjectStates(state) << "]\n";
+		}
+
 		switch (tokenize::read())
 		{
 			case TokenLiteral::tString:
@@ -228,6 +233,11 @@ int parser::parse_input()
 
 	while (do_another)
 	{
+		if (debug_level >= TRACE)
+		{
+			cerr << "parse_input\n";
+		}
+
 		switch (tokenize::read())
 		{
 			case TokenLiteral::tEof:
