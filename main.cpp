@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "main.hpp"
 #include "parser.hpp"
 
 using namespace std;
@@ -101,6 +102,12 @@ void parse_cl(vector<string> arguments)
 }
 
 
+void dumpSymbolStream(parser *pjson)
+{
+
+}
+
+
 int main(int argc, char *argv[])
 {
 	// parse command-line argumets
@@ -143,6 +150,11 @@ int main(int argc, char *argv[])
 	else
 	{
 		cerr << "Failure!! Invalid JSON string found during parsing.\n";
+	}
+
+	if (debug_level >= GENERIC_DEBUG)
+	{
+		dumpSymbolStream(json_parser);
 	}
 
 	// cleanup and exit
