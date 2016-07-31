@@ -21,14 +21,22 @@
 
 using namespace std;
 
+enum class ObjectStates : char {
+	osNeedString,
+	osNeedColon,
+	osNeedValue,
+	osNeedEnd
+};
+
 class parser : public tokenize {
 
 	private:
-		vector<Token> SymbolStream;
-
 		bool parseObject();
+		bool parseValue();
 
 	public:
+		vector<Token> SymbolStream;
+
 		parser();
 		parser(istream *m_input);
 		~parser();
