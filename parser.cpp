@@ -70,9 +70,58 @@ string parser::sObjectStates(ObjectStates state)
 }
 
 
-bool parser::parseValue()
+bool parser::parseArray()
 {
 
+}
+
+
+bool parser::parseValue()
+{
+	bool success = true;
+
+	if (debug_level >= TRACE)
+	{
+		cerr << "parseValue\n";
+	}
+
+	switch (tokenize::read())
+	{
+		case TokenLiteral::tString:
+			SymbolStream.push_back(get_current());
+			break;
+
+		case TokenLiteral::tNumber:
+			SymbolStream.push_back(get_current());
+			break;
+
+		case TokenLiteral::tLCurly:
+			SymbolStream.push_back(get_current());
+			success = parseObject();
+			break;
+
+		case TokenLiteral::tLBracket:
+			SymbolStream.push_back(get_current());
+			success = parseArray();
+			break;
+
+		case TokenLiteral::tTrue:
+			SymbolStream.push_back(get_current());
+			break;
+
+		case TokenLiteral::tFalse:
+			SymbolStream.push_back(get_current());
+			break;
+
+		case TokenLiteral::tNull:
+			SymbolStream.push_back(get_current());
+			break;
+
+		default:
+			success = false;
+			break;
+	}
+	return success;
 }
 
 bool parser::parseObject()
