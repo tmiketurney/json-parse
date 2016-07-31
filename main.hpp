@@ -24,6 +24,10 @@ extern int version_major;
 extern int version_minor;
 
 extern int debug_level;
+// Debug levels, set in debug_level
+#define NO_DEBUG 0
+#define GENERIC_DEBUG 1       // additional debug statements
+#define TRACE 2               // every function traces
 
 extern ifstream infile;
 extern string file_name;
