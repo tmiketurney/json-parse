@@ -22,9 +22,10 @@
 
 extern int version_major;
 extern int version_minor;
+
 extern int debug_level;
+
 extern ifstream infile;
 extern string file_name;
-extern vector<Token> SymbolStream;
 
 #endif	// _MAIN_HPP
