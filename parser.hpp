@@ -33,6 +33,7 @@ class parser : public tokenize {
 	private:
 		bool parseObject();
 		bool parseValue();
+		bool parseArray();
 
 	public:
 		vector<Token> SymbolStream;
@@ -42,6 +43,7 @@ class parser : public tokenize {
 		~parser();
 
 		int parse_input();
+		string sObjectStates(ObjectStates state);
 };
  
 #endif		// _PARSER_HPP
