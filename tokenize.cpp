@@ -132,6 +132,9 @@ TokenLiteral tokenize::read()
 		case ':':
 			m_current.tokenliteral = TokenLiteral::tColon;
 			break;
+		case ',':
+			m_current.tokenliteral = TokenLiteral::tComma;
+			break;
 
 		// second group are numbers
 		case '-':

@@ -30,7 +30,8 @@ enum class TokenLiteral : char {
 	tRCurly='}',
 	tLBracket='[',
 	tRBracket=']',
-	tColon=':'
+	tColon=':',
+	tComma=','
 };
 
 struct Token {
