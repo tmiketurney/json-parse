@@ -19,6 +19,7 @@
 
 #include "main.hpp"
 #include "parser.hpp"
+#include "tokenize.hpp"
 
 using namespace std;
 
@@ -104,7 +105,53 @@ void parse_cl(vector<string> arguments)
 
 void dumpSymbolStream(parser *pjson)
 {
-
+	for (std::vector<Token>::iterator iter = pjson->SymbolStream.begin();
+         iter != pjson->SymbolStream.end(); ++iter)
+	{
+		Token token = *iter;
+		switch (token.tokenliteral)
+		{
+			case TokenLiteral::tEof:
+				cerr << "EOF\n";
+				break;
+			case TokenLiteral::tString:
+				cerr << token.string_value;
+				break;
+			case TokenLiteral::tNumber:
+				cerr << token.number_value;
+				break;
+			case TokenLiteral::tTrue:
+				cerr << "true";
+				break;
+			case TokenLiteral::tFalse:
+				cerr << "false";
+				break;
+			case TokenLiteral::tNull:
+				cerr << "null";
+				break;
+			case TokenLiteral::tLCurly:
+				cerr << "\n{ ";
+				break;
+			case TokenLiteral::tRCurly:
+				cerr << " }\n";
+				break;
+			case TokenLiteral::tLBracket:
+				cerr << "\n[ ";
+				break;
+			case TokenLiteral::tRBracket:
+				cerr << " ]\n";
+				break;
+			case TokenLiteral::tColon:
+				cerr << " : ";
+				break;
+			case TokenLiteral::tComma:
+				cerr << " , ";
+				break;
+			default:
+				cerr << "\nUNKNOW\n";
+				break;
+		}
+	}
 }
 
 
