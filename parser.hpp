@@ -26,6 +26,8 @@ class parser : public tokenize {
 	private:
 		vector<Token> SymbolStream;
 
+		bool parseObject();
+
 	public:
 		parser();
 		parser(istream *m_input);

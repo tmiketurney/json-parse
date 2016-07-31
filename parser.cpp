@@ -38,10 +38,41 @@ parser::~parser()
 	}
 }
 
+bool parser::parseObject()
+{
+
+}
+
 int parser::parse_input()
 {
 	Token token;
+	TokenLiteral next_in_stream;
+	bool do_another = true;
+	bool success = true;
 
-	return 0;
+	while (do_another)
+	{
+		next_in_stream = tokenize::read();
+		switch (next_in_stream)
+		{
+			case TokenLiteral::tEof:
+				// End of File
+				do_another = false;
+				break;
+
+			case TokenLiteral::tLCurly:
+				// start of object
+				SymbolStream.push_back(get_current());
+				success = parseObject();
+				break;
+
+			default:
+				do_another = false;
+				success = false;
+				break;
+		}
+	}
+
+	return success;
 }
 
