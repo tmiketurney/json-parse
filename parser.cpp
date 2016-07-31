@@ -144,7 +144,7 @@ bool parser::parseObject()
 				{
 					if (debug_level >= GENERIC_DEBUG)
 					{
-						cerr << "parseObject found string while looking for [" << (int)state << "]\n";
+						cerr << "parseObject found string while looking for [" << sObjectStates(state) << "]\n";
 					}
 					do_another = false;
 					success = false;
@@ -170,7 +170,7 @@ bool parser::parseObject()
 				{
 					if (debug_level >= GENERIC_DEBUG)
 					{
-						cerr << "parseObject found [:] while looking for [" << (int)state << "]\n";
+						cerr << "parseObject found [:] while looking for [" << sObjectStates(state) << "]\n";
 					}
 					do_another = false;
 					success = false;
@@ -188,7 +188,7 @@ bool parser::parseObject()
 				{
 					if (debug_level >= GENERIC_DEBUG)
 					{
-						cerr << "parseObject found [}] while looking for [" << (int)state << "]\n";
+						cerr << "parseObject found [}] while looking for [" << sObjectStates(state) << "]\n";
 					}
 					do_another = false;
 					success = false;
@@ -205,7 +205,7 @@ bool parser::parseObject()
 				{
 					if (debug_level >= GENERIC_DEBUG)
 					{
-						cerr << "parseObject found [,] while looking for [" << (int)state << "]\n";
+						cerr << "parseObject found [,] while looking for [" << sObjectStates(state) << "]\n";
 					}
 					do_another = false;
 					success = false;
