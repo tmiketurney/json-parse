@@ -15,12 +15,16 @@
 #define _PARSER_HPP
 
 #include <iostream>
+#include <vector>
  
 #include "tokenize.hpp"
 
 using namespace std;
 
 class parser : public tokenize {
+
+	private:
+		vector<Token> SymbolStream;
 
 	public:
 		parser();

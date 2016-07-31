@@ -31,7 +31,11 @@ parser::parser(istream *input) : tokenize(input)
 
 parser::~parser()
 {
-
+	for (std::vector<Token>::iterator iter = SymbolStream.begin();
+         iter != SymbolStream.end(); ++iter)
+	{
+		delete &iter;
+	}
 }
 
 int parser::parse_input()
