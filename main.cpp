@@ -26,7 +26,7 @@ using namespace std;
 //#define DEBUG_ARGUMENTS			// enable to dump command-line arguments
 
 int version_major = 0;
-int version_minor = 1;
+int version_minor = 2;
 
 int debug_level;
 
