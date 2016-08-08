@@ -20,12 +20,12 @@
 
 using namespace std;
 
-parser::parser() : tokenize()
+parser::parser()
 {
 
 }
 
-parser::parser(istream *input) : tokenize(input)
+parser::parser(istream *input) : m_token(input)
 {
 
 }
@@ -85,36 +85,36 @@ bool parser::parseValue()
 		cerr << "parseValue\n";
 	}
 
-	switch (tokenize::read())
+	switch (m_token.read())
 	{
 		case TokenLiteral::tString:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			break;
 
 		case TokenLiteral::tNumber:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			break;
 
 		case TokenLiteral::tLCurly:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			success = parseObject();
 			break;
 
 		case TokenLiteral::tLBracket:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			success = parseArray();
 			break;
 
 		case TokenLiteral::tTrue:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			break;
 
 		case TokenLiteral::tFalse:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			break;
 
 		case TokenLiteral::tNull:
-			SymbolStream.push_back(get_current());
+			SymbolStream.push_back(m_token.get_current());
 			break;
 
 		default:
@@ -138,12 +138,12 @@ bool parser::parseObject()
 			cerr << "parseObject state[" << sObjectStates(state) << "]\n";
 		}
 
-		switch (tokenize::read())
+		switch (m_token.read())
 		{
 			case TokenLiteral::tString:
 				if (state == ObjectStates::osNeedString)
 				{
-					SymbolStream.push_back(get_current());
+					SymbolStream.push_back(m_token.get_current());
 					state = ObjectStates::osNeedColon;
 				}
 				else
@@ -160,7 +160,7 @@ bool parser::parseObject()
 			case TokenLiteral::tColon:
 				if (state == ObjectStates::osNeedColon)
 				{
-					SymbolStream.push_back(get_current());
+					SymbolStream.push_back(m_token.get_current());
 					state = ObjectStates::osNeedValue;
 					if (!parseValue())
 					{
@@ -188,7 +188,7 @@ bool parser::parseObject()
 				{
 					do_another = false;
 					success = true;
-					SymbolStream.push_back(get_current());
+					SymbolStream.push_back(m_token.get_current());
 				}
 				else
 				{
@@ -204,7 +204,7 @@ bool parser::parseObject()
 			case TokenLiteral::tComma:
 				if (state == ObjectStates::osNeedEnd)
 				{
-					SymbolStream.push_back(get_current());
+					SymbolStream.push_back(m_token.get_current());
 					state = ObjectStates::osNeedString;
 				}
 				else
@@ -240,7 +240,7 @@ int parser::parse_input()
 			cerr << "parse_input\n";
 		}
 
-		switch (tokenize::read())
+		switch (m_token.read())
 		{
 			case TokenLiteral::tEof:
 				// End of File
@@ -249,7 +249,7 @@ int parser::parse_input()
 
 			case TokenLiteral::tLCurly:
 				// start of object
-				SymbolStream.push_back(get_current());
+				SymbolStream.push_back(m_token.get_current());
 				success = parseObject();
 				break;
 

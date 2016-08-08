@@ -28,9 +28,10 @@ enum class ObjectStates : char {
 	osNeedEnd
 };
 
-class parser : public tokenize {
+class parser {
 
 	private:
+		tokenize m_token;
 		bool parseObject();
 		bool parseValue();
 		bool parseArray();
