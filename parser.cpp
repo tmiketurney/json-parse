@@ -66,9 +66,80 @@ string parser::sObjectStates(ObjectStates state)
 }
 
 
+string parser::sArrayStates(ArrayStates state)
+{
+	string value;
+
+	switch (state)
+	{
+		case ArrayStates::asNeedValue:
+			value = "asNeedValue";
+			break;
+
+		case ArrayStates::asNeedEnd:
+			value = "asNeedEnd";
+			break;
+
+		default:
+			value = "UNKNOWN";
+			break;
+	}
+	return value;
+}
+
 bool parser::parseArray()
 {
+	ArrayStates state = ArrayStates::asNeedValue;
+	bool do_another = true;
+	bool success = true;
 
+	while (do_another)
+	{
+		if (debug_level >= TRACE)
+		{
+			cerr << "parseArray state[" << sArrayStates(state) << "]\n";
+		}
+		switch(state)
+		{
+			case ArrayStates::asNeedValue:
+				if (!parseValue())
+				{
+					do_another = false;
+					success = false;
+				}
+				else
+				{
+					state = ArrayStates::asNeedEnd;
+				}
+				break;
+
+			case ArrayStates::asNeedEnd:
+				switch (m_token.read())
+				{
+					case TokenLiteral::tComma:
+						SymbolStream.push_back(m_token.get_current());
+						state = ArrayStates::asNeedValue;
+						break;
+
+					case TokenLiteral::tRBracket:
+						SymbolStream.push_back(m_token.get_current());
+						do_another = false;
+						break;
+
+					default:
+						success = false;
+						do_another = false;
+						break;
+				}
+				break;
+
+			default:
+				success = false;
+				do_another = false;
+				break;
+		}
+	}
+	return success;
 }
 
 

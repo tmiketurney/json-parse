@@ -28,6 +28,11 @@ enum class ObjectStates : char {
 	osNeedEnd
 };
 
+enum class ArrayStates : char {
+	asNeedValue,
+	asNeedEnd
+};
+
 class parser {
 
 	private:
@@ -45,6 +50,7 @@ class parser {
 
 		int parse_input();
 		string sObjectStates(ObjectStates state);
+		string sArrayStates(ArrayStates state);
 };
  
 #endif		// _PARSER_HPP
