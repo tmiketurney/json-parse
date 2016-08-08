@@ -32,11 +32,7 @@ parser::parser(istream *input) : m_token(input)
 
 parser::~parser()
 {
-//	for (std::vector<Token>::iterator iter = SymbolStream.begin();
-//         iter != SymbolStream.end(); ++iter)
-//	{
-//		delete &iter;
-//	}
+
 }
 
 
