@@ -115,10 +115,10 @@ void dumpSymbolStream(parser *pjson)
 				cerr << "EOF\n";
 				break;
 			case TokenLiteral::tString:
-				cerr << token.string_value;
+				cerr << "\"" << token.string_value << "\"";
 				break;
 			case TokenLiteral::tNumber:
-				cerr << token.number_value;
+				cerr << token.string_value;
 				break;
 			case TokenLiteral::tTrue:
 				cerr << "true";
