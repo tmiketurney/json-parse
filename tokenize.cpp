@@ -37,6 +37,15 @@ tokenize::~tokenize()
 
 }
 
+
+char tokenize::read1()
+{
+	char ch;
+	*m_input >> ch;
+	return ch;
+}
+
+
 bool tokenize::handle_digits()
 {
 	char ch = 0;

@@ -55,6 +55,7 @@ class tokenize {
 		~tokenize();
 
 		TokenLiteral read();
+		char read1();
 		bool handle_digits();
 		Token get_current() { return m_current; }
 		char  get_digit()   { return m_digit; }
