@@ -254,6 +254,9 @@ bool parser::parseNumber()
 					case NumberStates::ns5NeedPlusMinusDigit:
 						success = false;
 						break;
+					default:
+						m_token.put_back(single_digit);
+						break;
 				}
 				break;
 		}
