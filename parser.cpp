@@ -145,10 +145,7 @@ bool parser::parseNumber()
 			cerr << "parseNumber state[" << sNumberStates(state) << "]\n";
 		}
 
-		if (!m_token.handle_digits())
-			return false;
-
-		single_digit = m_token.get_digit();
+		single_digit = m_token.read1();
 		switch (single_digit)
 		{
 			case '0':
@@ -267,6 +264,13 @@ bool parser::parseNumber()
 		Token number = m_token.get_current();
 		number.string_value = numberValue;
 		SymbolStream.push_back(number);
+	}
+	else
+	{
+		if (debug_level >= GENERIC_DEBUG)
+		{
+			cerr << "numberValue[" << numberValue << "] single_digit[" << single_digit << "]\n";
+		}
 	}
 	return success;
 }
