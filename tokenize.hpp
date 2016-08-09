@@ -37,7 +37,6 @@ enum class TokenLiteral : char {
 struct Token {
 	TokenLiteral    tokenliteral;
 	string          string_value;
-	double          number_value;
 };
 
 class tokenize {
@@ -45,8 +44,8 @@ class tokenize {
 	private:
 		istream *m_input;
 		Token m_current;
+		char  m_digit;
 
-		bool handle_digits();
 		bool handle_strings();
 		bool check_name(string name);
 
@@ -56,7 +55,9 @@ class tokenize {
 		~tokenize();
 
 		TokenLiteral read();
+		bool handle_digits();
 		Token get_current() { return m_current; }
+		char  get_digit()   { return m_digit; }
 };
  
 #endif		// _TOKENIZE_HPP

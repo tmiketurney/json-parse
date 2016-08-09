@@ -21,6 +21,7 @@
 
 using namespace std;
 
+// { string : value [,] }
 enum class ObjectStates : char {
 	osNeedString,
 	osNeedColon,
@@ -28,9 +29,21 @@ enum class ObjectStates : char {
 	osNeedEnd
 };
 
+// [ value [,] ]
 enum class ArrayStates : char {
 	asNeedValue,
 	asNeedEnd
+};
+
+// [-] 0 | 1-9* [ . 0-9* ] [e|E] [+|-] [0-9*]
+enum class NumberStates : char {
+	ns0NeedMinusDigit,
+	ns1NeedDigit,
+	ns2NeedDigit,
+	ns3NeedEDotDigit,
+	ns4NeedDigit,
+	ns5NeedPlusMinusDigit,
+	ns6NeedDigit
 };
 
 class parser {
@@ -40,6 +53,7 @@ class parser {
 		bool parseObject();
 		bool parseValue();
 		bool parseArray();
+		bool parseNumber();
 
 	public:
 		vector<Token> SymbolStream;
@@ -51,6 +65,7 @@ class parser {
 		int parse_input();
 		string sObjectStates(ObjectStates state);
 		string sArrayStates(ArrayStates state);
+		string sNumberStates(NumberStates state);
 };
  
 #endif		// _PARSER_HPP

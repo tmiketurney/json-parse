@@ -22,12 +22,14 @@ using namespace std;
 tokenize::tokenize()
 {
 	m_current.tokenliteral = TokenLiteral::tEof;
+	m_digit = '\0';
 }
 
 tokenize::tokenize(istream *input)
 {
 	m_input = input;
 	m_current.tokenliteral = TokenLiteral::tEof;
+	m_digit = '\0';
 }
 
 tokenize::~tokenize()
@@ -37,12 +39,42 @@ tokenize::~tokenize()
 
 bool tokenize::handle_digits()
 {
+	char ch = 0;
+	bool success = true;
+
 	if (debug_level >= TRACE)
 	{
-		cerr << "handle_digits\n";
+		cerr << "handle_digits()\n";
 	}
 
-	return false;
+	*m_input >> ch;
+
+	switch (ch) {
+		case '+':
+		case '-':
+		case '.':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		case 'e':
+		case 'E':
+			m_digit = ch;
+			break;
+
+		default:
+			m_digit = '\0';
+			success = false;
+			break;
+	}
+
+	return success;
 }
 
 bool tokenize::handle_strings()
@@ -169,7 +201,7 @@ TokenLiteral tokenize::read()
 		case '8':
 		case '9':
 			m_input->putback(ch);
-			success = handle_digits();
+			m_current.tokenliteral = TokenLiteral::tNumber;
 			break;
 
 		// third group are strings

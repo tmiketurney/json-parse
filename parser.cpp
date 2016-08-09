@@ -22,7 +22,7 @@ using namespace std;
 
 parser::parser()
 {
-
+	// This should error out
 }
 
 parser::parser(istream *input) : m_token(input)
@@ -86,6 +86,191 @@ string parser::sArrayStates(ArrayStates state)
 	}
 	return value;
 }
+
+
+string parser::sNumberStates(NumberStates state)
+{
+	string value;
+
+	switch (state)
+	{
+		case NumberStates::ns0NeedMinusDigit:
+			value = "ns0NeedMinusDigit";
+			break;
+
+		case NumberStates::ns1NeedDigit:
+			value = "ns1NeedDigit";
+			break;
+
+		case NumberStates::ns2NeedDigit:
+			value = "ns2NeedDigit";
+			break;
+
+		case NumberStates::ns3NeedEDotDigit:
+			value = "ns3NeedEDotDigit";
+			break;
+
+		case NumberStates::ns4NeedDigit:
+			value = "ns4NeedDigit";
+			break;
+
+		case NumberStates::ns5NeedPlusMinusDigit:
+			value = "ns5NeedPlusMinusDigit";
+			break;
+
+		case NumberStates::ns6NeedDigit:
+			value = "ns6NeedDigit";
+			break;
+
+		default:
+			value = "UNKNOWN";
+			break;
+	}
+	return value;
+}
+
+
+bool parser::parseNumber()
+{
+	NumberStates state = NumberStates::ns0NeedMinusDigit;
+	bool do_another = true;
+	bool success = true;
+	string numberValue;
+	char single_digit;
+
+	while (do_another)
+	{
+		if (debug_level >= TRACE)
+		{
+			cerr << "parseNumber state[" << sNumberStates(state) << "]\n";
+		}
+
+		if (!m_token.handle_digits())
+			return false;
+
+		single_digit = m_token.get_digit();
+		switch (single_digit)
+		{
+			case '0':
+				numberValue += single_digit;
+				switch (state)
+				{
+					case NumberStates::ns0NeedMinusDigit:
+						state = NumberStates::ns3NeedEDotDigit;
+						break;
+				}
+				break;
+
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+			case '9':
+				numberValue += single_digit;
+				switch (state)
+				{
+					case NumberStates::ns0NeedMinusDigit:
+					case NumberStates::ns1NeedDigit:
+						state = NumberStates::ns2NeedDigit;
+						break;
+					case NumberStates::ns3NeedEDotDigit:
+						state = NumberStates::ns4NeedDigit;
+						break;
+					case NumberStates::ns5NeedPlusMinusDigit:
+						state = NumberStates::ns6NeedDigit;
+						break;
+				}
+				break;
+
+			case '-':
+				switch (state)
+				{
+					case NumberStates::ns0NeedMinusDigit:
+						numberValue += single_digit;
+						state = NumberStates::ns1NeedDigit;
+						break;
+					case NumberStates::ns5NeedPlusMinusDigit:
+						numberValue += single_digit;
+						state = NumberStates::ns6NeedDigit;
+						break;
+					default:
+						do_another = false;
+						success = false;
+						break;
+				}
+				break;
+
+			case '+':
+				switch (state)
+				{
+					case NumberStates::ns5NeedPlusMinusDigit:
+						numberValue += single_digit;
+						state = NumberStates::ns6NeedDigit;
+						break;
+					default:
+						do_another = false;
+						success = false;
+						break;
+				}
+				break;
+
+			case '.':
+				switch (state)
+				{
+					case NumberStates::ns3NeedEDotDigit:
+						numberValue += single_digit;
+						state = NumberStates::ns4NeedDigit;
+						break;
+					default:
+						do_another = false;
+						success = false;
+						break;
+				}
+				break;
+
+			case 'e':
+			case 'E':
+				switch (state)
+				{
+					case NumberStates::ns3NeedEDotDigit:
+						numberValue += single_digit;
+						state = NumberStates::ns5NeedPlusMinusDigit;
+						break;
+					default:
+						do_another = false;
+						success = false;
+						break;
+				}
+				break;
+
+			default:
+				do_another = false;
+				switch (state)
+				{
+					case NumberStates::ns0NeedMinusDigit:
+					case NumberStates::ns1NeedDigit:
+					case NumberStates::ns3NeedEDotDigit:
+					case NumberStates::ns5NeedPlusMinusDigit:
+						success = false;
+						break;
+				}
+				break;
+		}
+	}
+
+	if (success)
+	{
+		Token number = m_token.get_current();
+		number.string_value = numberValue;
+		SymbolStream.push_back(number);
+	}
+	return success;
+}
+
 
 bool parser::parseArray()
 {
@@ -159,7 +344,7 @@ bool parser::parseValue()
 			break;
 
 		case TokenLiteral::tNumber:
-			SymbolStream.push_back(m_token.get_current());
+			success = parseNumber();
 			break;
 
 		case TokenLiteral::tLCurly:
