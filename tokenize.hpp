@@ -58,6 +58,7 @@ class tokenize {
 		bool handle_digits();
 		Token get_current() { return m_current; }
 		char  get_digit()   { return m_digit; }
+		void  put_back(char c) { m_input->putback(c); }
 };
  
 #endif		// _TOKENIZE_HPP

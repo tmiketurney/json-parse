@@ -70,6 +70,7 @@ bool tokenize::handle_digits()
 
 		default:
 			m_digit = '\0';
+			m_input->putback(ch);
 			success = false;
 			break;
 	}
